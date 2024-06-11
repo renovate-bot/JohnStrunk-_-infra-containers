@@ -10,9 +10,8 @@ extends: default
 #   bundle/**
 
 rules:
-  comments:  # renovate-bot dosen't put 2 spaces before the version number
-    ignore: |
-      .github/workflows/*
+  comments:
+    min-spaces-from-content: 1
   indentation:
     indent-sequences: consistent
   line-length:
