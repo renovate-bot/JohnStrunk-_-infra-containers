@@ -23,6 +23,12 @@ jobs:
         # https://github.com/actions/checkout
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
+      # https://github.com/hadolint/hadolint/issues/886#issuecomment-2043649041
+      - name: Install hadolint
+        run: |
+          sudo wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
+          sudo chmod a+x /usr/local/bin/hadolint
+
       - name: Set up Python
         id: setup-py
         # https://github.com/actions/setup-python
