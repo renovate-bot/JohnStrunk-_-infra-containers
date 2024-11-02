@@ -80,11 +80,12 @@ jobs:
       - name: Build devcontainer
         run: npx -- @devcontainers/cli build --workspace-folder . --cache-from type=gha,scope=devcontainer --cache-to type=gha,mode=min,scope=devcontainer
 
-  upnp-forwarder:
-    name: "UPnP Forwarder"
-    env:
-      IMAGE_NAME: upnp-forwarder
-      CONTEXT_PATH: upnp-forwarder
+  containers:
+    name: "Build image"
+    strategy:
+      matrix:
+        image:
+          - upnp-forwarder
     needs: [pre-commit]
     runs-on: ubuntu-latest
     permissions:
@@ -118,10 +119,10 @@ jobs:
           DOCKER_METADATA_ANNOTATIONS_LEVELS: index,manifest
         with:
           annotations: |
-            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
-          images: ${{ env.IMAGE_PREFIX }}${{ env.IMAGE_NAME }}
+            org.opencontainers.image.title=${{ matrix.image }}
+          images: ${{ env.IMAGE_PREFIX }}${{ matrix.image }}
           labels: |
-            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
+            org.opencontainers.image.title=${{ matrix.image }}
           # semver lines are for mapping git tags to container tags
           #   v1.2.3 -> 1.2.3, 1.2, 1
           # type=raw sets 'latest' to match the most recent commit on main
@@ -137,22 +138,22 @@ jobs:
         uses: docker/build-push-action@4f58ea79222b3b9dc2c8bbdd6debcef730109a75 # v6.9.0
         with:
           annotations: ${{ steps.meta.outputs.annotations }}
-          context: ./${{ env.CONTEXT_PATH }}
+          context: ./${{ matrix.image }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=container-${{ matrix.image }}
+          cache-to: type=gha,mode=max,scope=container-${{ matrix.image }}
 
 
   # This is a dummy job to determine success of the CI workflow
   ci-success:
     name: CI Workflow - Success
     needs:
+      - containers
       - devcontainer
       - pre-commit
-      - upnp-forwarder
     runs-on: ubuntu-latest
     steps:
       - name: Success
