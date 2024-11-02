@@ -3,7 +3,7 @@
 name: "CI Workflow"
 
 env:
-  IMAGE_PREFIX: infra-
+  IMAGE_PREFIX: ghcr.io/JohnStrunk/infra-
 
 on:  # yamllint disable-line rule:truthy
   push:
@@ -118,10 +118,10 @@ jobs:
           DOCKER_METADATA_ANNOTATIONS_LEVELS: index,manifest
         with:
           annotations: |
-            org.opencontainers.image.title=${{ env.IMAGE_PREFIX }}${{ env.IMAGE_NAME }}
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
           images: ${{ env.IMAGE_PREFIX }}${{ env.IMAGE_NAME }}
           labels: |
-            org.opencontainers.image.title=${{ env.IMAGE_PREFIX }}${{ env.IMAGE_NAME }}
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
           # semver lines are for mapping git tags to container tags
           #   v1.2.3 -> 1.2.3, 1.2, 1
           # type=raw sets 'latest' to match the most recent commit on main
