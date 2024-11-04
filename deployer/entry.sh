@@ -14,7 +14,9 @@ fi
 
 REFRESH_INTERVAL=${REFRESH_INTERVAL:-300}
 WAIT_TIMEOUT=${WAIT_TIMEOUT:-300}
+INITIAL_WAIT=${INITIAL_WAIT:-120}
 
+echo "Waiting for ${INITIAL_WAIT} seconds before starting..."
 while true; do
     echo "Fetching latest docker-compose.yml from ${COMPOSE_URL}"
     curl -sSL -H "Authorization: token ${GH_TOKEN}" -o docker-compose.yml "${COMPOSE_URL}"
