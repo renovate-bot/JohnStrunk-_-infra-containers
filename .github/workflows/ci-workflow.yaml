@@ -86,6 +86,7 @@ jobs:
       matrix:
         image:
           - deployer
+          - restic-pruner
           - upnp-forwarder
     needs: [pre-commit]
     runs-on: ubuntu-latest
