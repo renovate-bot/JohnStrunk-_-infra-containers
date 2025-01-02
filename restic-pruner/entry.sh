@@ -17,6 +17,7 @@ PRUNE_INTERVAL=${PRUNE_INTERVAL:-604800}
 # Generate a random interval between 0 and PRUNE_INTERVAL
 INITIAL_INTERVAL=$(( (RANDOM * 100) % PRUNE_INTERVAL))
 echo "$(date) - Sleeping for initial ${INITIAL_INTERVAL} seconds..."
+sleep "${INITIAL_INTERVAL}"
 
 while true; do
   echo "$(date) - Pruning repository..."
