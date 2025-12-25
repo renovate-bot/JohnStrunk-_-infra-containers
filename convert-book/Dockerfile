@@ -12,5 +12,4 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 COPY entry.sh /entry.sh
 RUN chmod a+rx /entry.sh
 
-ENTRYPOINT [ "/bin/bash" ]
-CMD [ "/entry.sh" ]
+ENTRYPOINT [ "/entry.sh" ]
