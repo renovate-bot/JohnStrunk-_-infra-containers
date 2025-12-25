@@ -85,6 +85,7 @@ jobs:
     strategy:
       matrix:
         image:
+          - convert-book
           - infra-deployer
           - infra-restic-pruner
           - infra-upnp-forwarder
