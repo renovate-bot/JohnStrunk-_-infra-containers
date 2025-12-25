@@ -1,8 +1,8 @@
 #! /bin/bash
 
-# Usage: docker run --rm -i convert-book < input.epub > output.pdf
+# Usage: docker run --rm -i -v.:/data convert-book /data/input.epub /data/output.pdf
 
-ebook-convert /dev/stdin /dev/stdout \
+ebook-convert "$@" \
   --pdf-standard-font=sans \
   --pdf-sans-family="DejaVu Sans" \
   --pdf-serif-family="DejaVu Serif" \
