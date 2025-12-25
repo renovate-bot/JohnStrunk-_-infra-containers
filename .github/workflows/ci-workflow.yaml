@@ -3,7 +3,7 @@
 name: "CI Workflow"
 
 env:
-  IMAGE_PREFIX: ghcr.io/JohnStrunk/infra-
+  IMAGE_PREFIX: ghcr.io/JohnStrunk/
 
 on:  # yamllint disable-line rule:truthy
   push:
@@ -85,9 +85,9 @@ jobs:
     strategy:
       matrix:
         image:
-          - deployer
-          - restic-pruner
-          - upnp-forwarder
+          - infra-deployer
+          - infra-restic-pruner
+          - infra-upnp-forwarder
     needs: [pre-commit]
     runs-on: ubuntu-latest
     permissions:
