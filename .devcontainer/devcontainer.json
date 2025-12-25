@@ -1,19 +1,26 @@
 {
-	// For format details, see https://aka.ms/devcontainer.json.
-	// For config options, see the README at:
-	// https://github.com/devcontainers/templates/tree/main/src/debian
-	// Other base images: https://github.com/devcontainers/images
-	"name": "Debian",
-	"image": "mcr.microsoft.com/devcontainers/base:bookworm@sha256:1d5ccf8d7fe290a16617e55a2f10dcf7856c765d4894bf6e9cf54ec0491a4a7f",
-	// Available features: https://containers.dev/features
-	"features": {
-		"ghcr.io/devcontainers/features/node:1.6.3": {},
-		"ghcr.io/devcontainers-extra/features/pre-commit:2.0.18": {},
-		"ghcr.io/dhoeric/features/hadolint:1.0.0": {}
-	},
-	"postCreateCommand": {
-		// Install pre-commit hooks in the background since they can take a
-		// while, and we want to minimize waiting during `git commit`
-		"Initialize pre-commit environment": "nohup sh -c 'pre-commit install -f --install-hooks &' < /dev/null > /dev/null 2>&1"
-	}
+    // For format details, see https://aka.ms/devcontainer.json.
+    // For config options, see the README at:
+    // https://github.com/devcontainers/templates/tree/main/src/debian
+    // Other base images: https://github.com/devcontainers/images
+    "name": "Debian",
+    "image": "mcr.microsoft.com/devcontainers/base:debian@sha256:30b0a0c004ca94d36c323ee993361a7e0ae25ea255ea125201e8a9587501c324",
+    // Available features: https://containers.dev/features
+    "features": {
+        "ghcr.io/devcontainers/features/copilot-cli:1.0.0": {},
+        "ghcr.io/devcontainers/features/github-cli:1.0.15": {},
+        "ghcr.io/devcontainers/features/node:1.6.3": {
+            "version": "lts",
+            "installYarnUsingApt": "false"
+        },
+        "ghcr.io/devcontainers-extra/features/pre-commit:2.0.18": {},
+        "ghcr.io/dhoeric/features/hadolint:1.0.0": {}
+    },
+    "postCreateCommand": {
+        "Enable corepack": "corepack enable && corepack install -g yarn",
+        "Install npm tools": "npm install -g @google/gemini-cli markdownlint-cli",
+        // Install pre-commit hooks in the background since they can take a
+        // while, and we want to minimize waiting during `git commit`
+        "Initialize pre-commit environment": "nohup sh -c 'pre-commit install -f --install-hooks &' < /dev/null > /dev/null 2>&1"
+    }
 }
