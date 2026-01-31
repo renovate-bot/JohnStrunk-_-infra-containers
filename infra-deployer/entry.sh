@@ -26,4 +26,6 @@ while true; do
     docker compose up --remove-orphans --wait --wait-timeout "${WAIT_TIMEOUT}" || true
     echo "Pausing for ${REFRESH_INTERVAL} seconds..."
     sleep "${REFRESH_INTERVAL}"
+    echo "Cleaning up unused Docker images..."
+    docker image prune -af
 done
