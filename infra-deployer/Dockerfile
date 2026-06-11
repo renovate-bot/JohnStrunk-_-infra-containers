@@ -1,4 +1,4 @@
-FROM debian:stable-slim@sha256:418a34cdf4c50c175c04d97697db19268f584ec29b38a7939d70dfe8e0a3d627
+FROM debian:stable-slim@sha256:34363c20bd149e41365fc77b086da067ed13ab2dff4cd0612788e12e6d52c44c
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3008
